@@ -12,7 +12,9 @@
 
 ## 安装
 
-### chrome 应用商店安装(todo 审核中)
+### chrome 应用商店安装
+
+[点击安装](https://chrome.google.com/webstore/detail/chatgpt-for-zhihu/dgoinfidjelfolhnkaableghhppplbak)
 
 ### 本地安装
 
@@ -31,7 +33,7 @@
 
 ## todos
 
-- [ ] chrome 应用市场审核通过
+- [x] chrome 应用市场审核通过
 - [ ] 直接在回答的编辑器里面增加按钮，点击按钮即可把 chatgpt 的回答放置到编辑器中。
 
 ## 致谢
