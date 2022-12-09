@@ -2,7 +2,7 @@
 
 一个知乎的 chatgpt 浏览器小插件，可作为你回复问题的参考，也可以复制 chatgpt 的结果到回答的编辑器中进行相应的修改。
 
-注意: 插件使用的前提是你需要有一个自己的 chatgpt 账号, 注册地址 https://chat.openai.com/)
+注意: 插件使用的前提是你需要有一个自己的 chatgpt 账号, 注册地址 https://chat.openai.com
 
 ## 软件截图和操作视频
 
