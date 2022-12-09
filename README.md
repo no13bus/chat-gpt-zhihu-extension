@@ -31,6 +31,9 @@
 3. 执行 `./build.sh`
 4. 加载 `build` 文件夹到你的 chrome 中
 
+## 新增加功能
+- 增加try again按钮，可以重新请求chatgpt，获取知乎问题新的答案
+
 ## todos
 
 - [x] chrome 应用市场审核通过
