@@ -34,6 +34,10 @@
 ## 新增加功能
 - 增加try again按钮，可以重新请求chatgpt，获取知乎问题新的答案
 
+## 产品反馈群
+
+- [小飞机](https://t.me/chat_gpt_zhihu_extension)
+
 ## todos
 
 - [x] chrome 应用市场审核通过
