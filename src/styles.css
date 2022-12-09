@@ -29,6 +29,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.chat-gpt-zhihu-icon-container {
+  display: flex;
+}
 .chat-gpt-zhihu-header-icon {
   width: 25px;
   height: 25px;
@@ -38,6 +42,10 @@
 }
 .chat-gpt-zhihu-header-icon.ok {
   display: none;
+}
+
+.chat-gpt-zhihu-tryagain {
+  margin-left: 20px;
 }
 .chat-gpt-zhihu-tooltip {
   position: relative;
