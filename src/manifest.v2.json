@@ -1,7 +1,7 @@
 {
   "name": "ChatGPT for Zhihu",
   "description": "Display ChatGPT response alongside Zhihu Search results",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "manifest_version": 2,
   "icons": {
     "16": "logo.png",
