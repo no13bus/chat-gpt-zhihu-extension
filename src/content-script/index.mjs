@@ -1,13 +1,17 @@
 import Browser from "webextension-polyfill";
 
 async function run(question) {
+  const theme = document.documentElement.dataset.theme;
   let container = document.querySelector("div.chat-gpt-zhihu");
   if (container) {
     container.remove();
   }
   container = document.createElement("div");
+  container.classList.add("chat-gpt-zhihu");
+  if (theme === "dark") {
+    container.classList.add("dark");
+  }
 
-  container.className = "chat-gpt-zhihu";
   container.innerHTML =
     "<div class='chat-gpt-zhihu-header'>Waiting for ChatGPT response...</div>";
 
