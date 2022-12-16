@@ -11,17 +11,20 @@ async function run(question) {
   if (theme === "dark") {
     container.classList.add("dark");
   }
-
   container.innerHTML =
     "<div class='chat-gpt-zhihu-header'>Waiting for ChatGPT response...</div>";
 
   const firstCard = document.querySelector(".Question-sideColumn .Card");
+  if (!firstCard) {
+    setTimeout(() => {
+      run(question);
+    }, 500);
+    return;
+  }
   firstCard.parentNode.insertBefore(container, firstCard);
-
   const port = Browser.runtime.connect();
   port.onMessage.addListener(function (msg) {
     if (msg.answer) {
-      console.log(1, msg.answer);
       const svgIcon = `
       <div class="chat-gpt-zhihu-icon-container">
         <div class="chat-gpt-zhihu-tooltip">

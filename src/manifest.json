@@ -18,7 +18,8 @@
       "matches": ["https://www.zhihu.com/question/*"],
       "include_globs": ["https://www.zhihu.com/question/*"],
       "js": ["content-script/index.js"],
-      "css": ["styles.css"]
+      "css": ["styles.css"],
+      "run_at": "document_end"
     }
   ]
 }
