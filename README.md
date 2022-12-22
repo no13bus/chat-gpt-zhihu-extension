@@ -16,6 +16,9 @@
 
 [点击安装](https://chrome.google.com/webstore/detail/chatgpt-for-zhihu/dgoinfidjelfolhnkaableghhppplbak)
 
+### Firefox 应用商店安装
+[点击安装](https://addons.mozilla.org/zh-CN/firefox/addon/chatgpt-for-zhihu)
+
 ### 本地安装
 
 1. 下载 `chrome.zip` from [Releases](https://github.com/no13bus/chat-gpt-zhihu-extension/releases)
