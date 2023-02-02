@@ -22,9 +22,12 @@ async function run(question) {
     return;
   }
   firstCard.parentNode.insertBefore(container, firstCard);
+  let answer = "";
   const port = Browser.runtime.connect();
   port.onMessage.addListener(function (msg) {
+    console.log("yyyy", msg);
     if (msg.answer) {
+      answer = msg.answer;
       const svgIcon = `
       <div class="chat-gpt-zhihu-icon-container">
         <div class="chat-gpt-zhihu-tooltip">
@@ -51,12 +54,11 @@ async function run(question) {
           </div>
           <pre class="chat-gpt-zhihu-answer"></pre>
           `;
-      container.querySelector(".chat-gpt-zhihu-answer").textContent =
-        msg.answer;
+      container.querySelector(".chat-gpt-zhihu-answer").textContent = answer;
       container
         .querySelector(".chat-gpt-zhihu-header-icon.copy")
         .addEventListener("click", async (e) => {
-          await navigator.clipboard.writeText(msg.answer);
+          await navigator.clipboard.writeText(answer);
           e.target.style.display = "none";
           container.querySelector(
             ".chat-gpt-zhihu-header-icon.ok"
@@ -71,8 +73,10 @@ async function run(question) {
     } else if (msg.error === "UNAUTHORIZED") {
       container.innerHTML = `<div class='chat-gpt-zhihu-header'>Please login at <a href="https://chat.openai.com" target="_blank">chat.openai.com</a> first</div>`;
     } else {
-      container.innerHTML =
-        "<div class='chat-gpt-zhihu-header'>Failed to load response from ChatGPT</div>";
+      if (answer === "") {
+        container.innerHTML =
+          "<div class='chat-gpt-zhihu-header'>Failed to load response from ChatGPT</div>";
+      }
     }
   });
   port.postMessage({ question });

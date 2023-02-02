@@ -11,20 +11,28 @@ async function getAccessToken() {
   if (cache.get(KEY_ACCESS_TOKEN)) {
     return cache.get(KEY_ACCESS_TOKEN);
   }
-  const resp = await fetch("https://chat.openai.com/api/auth/session")
+  const data = await fetch("https://chat.openai.com/api/auth/session")
     .then((r) => r.json())
     .catch(() => ({}));
-  if (!resp.accessToken) {
+  if (!data.accessToken) {
     throw new Error("UNAUTHORIZED");
   }
-  cache.set(KEY_ACCESS_TOKEN, resp.accessToken);
-  return resp.accessToken;
+  cache.set(KEY_ACCESS_TOKEN, data.accessToken);
+  return data.accessToken;
 }
 
-async function getAnswer(question, callback) {
+async function getAnswer(port, question) {
   const accessToken = await getAccessToken();
+
+  const controller = new AbortController();
+  port.onDisconnect.addListener(() => {
+    controller.abort();
+  });
+  console.log("question", question);
+
   await fetchSSE("https://chat.openai.com/backend-api/conversation", {
     method: "POST",
+    signal: controller.signal,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,
@@ -42,17 +50,25 @@ async function getAnswer(question, callback) {
         },
       ],
       model: "text-davinci-002-render",
+      // model: "text-davinci-002-render-next",
       parent_message_id: uuidv4(),
     }),
     onMessage(message) {
-      console.log("sse message", message);
+      console.info("sse message", message);
       if (message === "[DONE]") {
+        // port.postMessage({ event: "DONE" });
+        // deleteConversation();
         return;
       }
       const data = JSON.parse(message);
       const text = data.message?.content?.parts?.[0];
+      // conversationId = data.conversation_id;
       if (text) {
-        callback(text);
+        port.postMessage({
+          answer: text,
+          // messageId: data.message.id,
+          // conversationId: data.conversation_id,
+        });
       }
     },
   });
@@ -60,11 +76,10 @@ async function getAnswer(question, callback) {
 
 Browser.runtime.onConnect.addListener((port) => {
   port.onMessage.addListener(async (msg) => {
+    console.debug("received msg", msg);
     console.log("received msg", msg);
     try {
-      await getAnswer(msg.question, (answer) => {
-        port.postMessage({ answer });
-      });
+      await getAnswer(port, msg.question);
     } catch (err) {
       console.error(err);
       port.postMessage({ error: err.message });
